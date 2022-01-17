@@ -1,0 +1,30 @@
+nm = "Guest"
+host = get_shell.host_computer
+fl = host.File("/root/chats/chat.txt")
+while true
+	clear_screen
+	msg = user_input(nm+" > ")
+	// check for /
+	ct = "<color=white>"+current_date.split(" ")[1]
+	if msg.len > 0 and msg.indexOf("<m>") == null and msg.len <= 140 then
+		if msg[0] == ":" and msg[1] == ":" then
+			cmds = msg.split("::")[1]
+			cmd_txt = cmds.split(" ")
+			if cmd_txt.len == 2 then
+				cmd = cmd_txt[0]
+				var = cmd_txt[1]
+				if cmd == "name" then
+					system_msg = ct+": SYSTEM > '"+nm+"' <color=white> Changed their name to '"+var+"<color=white>'!"
+					nm = var
+				end if
+			rd = fl.get_content
+			nw = rd+"<m><color=white>"+system_msg
+			fl.set_content(nw)
+			end if
+		else
+			rd = fl.get_content
+			nw = rd+"<m>"+ct+": "+nm+" > "+msg
+			fl.set_content(nw)
+		end if
+	end if
+end while

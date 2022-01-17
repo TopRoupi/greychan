@@ -1,0 +1,16 @@
+li = 0
+host = get_shell.host_computer
+mf = host.File("/root/chats/chat.txt")
+while true
+	split_msgs = mf.get_content.split("<m>")
+	length = split_msgs.len
+	i = 0
+	for msg in split_msgs
+		if i > li then
+			print(msg)
+			li = i
+		end if
+		i = i+1
+	end for
+	wait(1)
+end while
